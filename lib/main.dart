@@ -1,6 +1,12 @@
 import 'package:flutter/material.dart';
 
-void main() {
+import 'features/recipes/data/di/Di.dart';
+import 'features/recipes/presentation/recipeDetails/RecipeDetailsPage.dart';
+import 'features/recipes/presentation/recipesListing/RecipeListPage.dart';
+
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await initDI();
   runApp(const MyApp());
 }
 
@@ -10,12 +16,17 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-        useMaterial3: true,
-      ),
-      home: Container(),
-    );
-  }
+          title: 'Recipe App',
+          routes: {
+            '/': (_) => const RecipeListPage(),
+            '/details': (ctx) {
+              final id = ModalRoute
+                  .of(ctx)!
+                  .settings
+                  .arguments as String;
+              return RecipeDetailsPage(recipeId: id);
+            },
+          },
+        );
+    }
 }
