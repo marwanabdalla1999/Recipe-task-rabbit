@@ -66,8 +66,6 @@ project-root/
 │── README.md
 ```
 
-Then reference them inside the README like this:
-
 ```markdown
 ### 🏠 Home Screen
 ![Home Screen](homeRabbit/home.png)
